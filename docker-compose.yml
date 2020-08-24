@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    nginx-vue-docker:
+        image: nginx:1.19-alpine
+        ports:
+            - 8080:8080
+        working_dir: /usr/share/nginx/html
+        volumes:
+            - ./nginx-templates:/etc/nginx/templates
+            - ./hello-world/production:/usr/share/nginx/html/production
+            - ./hello-world/staging:/usr/share/nginx/html/staging
+        environment:
+        - NGINX_HOST=foobar.com
+        - NGINX_PORT=8080
+        - STAGE_FOLDER=staging
