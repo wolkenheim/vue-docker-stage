@@ -11,6 +11,5 @@ services:
             - ./hello-world/production:/usr/share/nginx/html/production
             - ./hello-world/staging:/usr/share/nginx/html/staging
         environment:
-        - NGINX_HOST=foobar.com
         - NGINX_PORT=8080
-        - STAGE_FOLDER=staging
+        - STAGE_FOLDER=production

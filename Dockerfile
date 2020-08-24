@@ -5,6 +5,7 @@ WORKDIR /app
 COPY ./hello-world/package*.json ./
 RUN npm install
 COPY ./hello-world/ .
+RUN rm -rf production staging
 RUN npm run build:staging
 RUN npm run build:production
 
