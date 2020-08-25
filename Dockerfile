@@ -10,7 +10,7 @@ RUN npm run build:staging
 RUN npm run build:production
 
 # production stage
-FROM nginx:stable-alpine as production-stage
+FROM nginx:1.19-alpine as production-stage
 COPY --from=build-stage /app/staging /usr/share/nginx/html/staging
 COPY --from=build-stage /app/production /usr/share/nginx/html/production
 
