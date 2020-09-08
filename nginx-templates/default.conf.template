@@ -1,12 +1,29 @@
 
     server {
+        server_name localhost;
         listen ${NGINX_PORT};
         listen [::]:${NGINX_PORT};
-        index index.html;
-        server_name localhost;
+
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        sendfile        on;
+        keepalive_timeout  65;
+
+        location / {
+            root /usr/share/nginx/html/${STAGE_FOLDER};
+            index  index.html;
+            try_files $uri $uri/ /index.html;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+
         error_log  /var/log/nginx/error.log;
-        access_log /var/log/nginx/access.log;
-        root /usr/share/nginx/html/${STAGE_FOLDER};
+        access_log /dev/stdout;
+
+        location = /50x.html {
+        root   /usr/share/nginx/html;
+        }
 
         location /live {
             return 200 'healthy';
